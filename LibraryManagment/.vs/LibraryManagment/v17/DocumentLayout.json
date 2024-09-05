@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0504C002-1C5D-453A-A6E1-FFFBBA62290E}|Library.Infrastructure\\Library.Infrastructure.csproj|c:\\users\\asus\\desktop\\bookstoremanagment\\librarymanagment\\library.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0504C002-1C5D-453A-A6E1-FFFBBA62290E}|Library.Infrastructure\\Library.Infrastructure.csproj|solutionrelative:library.infrastructure\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0504C002-1C5D-453A-A6E1-FFFBBA62290E}|Library.Infrastructure\\Library.Infrastructure.csproj|c:\\users\\asus\\desktop\\bookstoremanagment\\librarymanagment\\library.infrastructure\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0504C002-1C5D-453A-A6E1-FFFBBA62290E}|Library.Infrastructure\\Library.Infrastructure.csproj|solutionrelative:library.infrastructure\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3C540C0-0BD5-48FD-B4F5-2672084B480B}|LibraryManagment\\LibraryManagment.csproj|c:\\users\\asus\\desktop\\bookstoremanagment\\librarymanagment\\librarymanagment\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3C540C0-0BD5-48FD-B4F5-2672084B480B}|LibraryManagment\\LibraryManagment.csproj|solutionrelative:librarymanagment\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\Library.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "Library.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\Library.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "RelativeToolTip": "Library.Infrastructure\\Repositories\\UnitOfWork.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-05T14:20:02.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BookRepository.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\Library.Infrastructure\\Repositories\\BookRepository.cs",
+              "RelativeDocumentMoniker": "Library.Infrastructure\\Repositories\\BookRepository.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\Library.Infrastructure\\Repositories\\BookRepository.cs",
+              "RelativeToolTip": "Library.Infrastructure\\Repositories\\BookRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-05T14:19:44.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\LibraryManagment\\Program.cs",
+              "RelativeDocumentMoniker": "LibraryManagment\\Program.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\BookStoreManagment\\LibraryManagment\\LibraryManagment\\Program.cs",
+              "RelativeToolTip": "LibraryManagment\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-05T14:14:52.325Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

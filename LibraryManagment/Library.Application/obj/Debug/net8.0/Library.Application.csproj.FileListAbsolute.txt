@@ -1,0 +1,12 @@
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\bin\Debug\net8.0\Library.Application.deps.json
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\bin\Debug\net8.0\Library.Application.dll
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\bin\Debug\net8.0\Library.Application.pdb
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.AssemblyInfoInputs.cache
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.AssemblyInfo.cs
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.csproj.CoreCompileInputs.cache
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.sourcelink.json
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.dll
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\refint\Library.Application.dll
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\Library.Application.pdb
+C:\Users\asus\Desktop\BookStoreManagment\LibraryManagment\Library.Application\obj\Debug\net8.0\ref\Library.Application.dll
