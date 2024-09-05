@@ -12,10 +12,18 @@ namespace Library.Infrastructure.Persistence
 
         public static async Task SeedDatabaseAsync(IServiceProvider serviceProvider)
         {
-            using (AppDbContext context = serviceProvider.GetRequiredService<AppDbContext>())
+            using (var scope = serviceProvider.CreateScope())
             {
-                UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                context.Database.EnsureCreated(); //db is creaated
+
+                // Seed roles
+                const string RoleName = "Admin";
+                const string UserEmail = "admin@example.com";
+                const string UserPassword = "Admin@123";
 
                 if (!await roleManager.RoleExistsAsync(RoleName))
                 {
@@ -24,28 +32,36 @@ namespace Library.Infrastructure.Persistence
 
                 if (await userManager.FindByEmailAsync(UserEmail) == null)
                 {
-                    ApplicationUser user = new ApplicationUser { UserName = UserEmail, Email = UserEmail, EmailConfirmed = true };
+                    var user = new ApplicationUser { UserName = UserEmail, Email = UserEmail, EmailConfirmed = true };
                     await userManager.CreateAsync(user, UserPassword);
                     await userManager.AddToRoleAsync(user, RoleName);
                 }
 
-                List<Book> book = new List<Book>() {
-                new Book(Guid.NewGuid(), "Book1",true),
-                new Book(Guid.NewGuid(), "Book2",true),
-                new Book(Guid.NewGuid(), "Book3",true),
-                };
+                // Seed other entities like Book, Member
+                if (!context.Books.Any())
+                {
+                    List<Book> books = new List<Book>
+            {
+                new Book(Guid.NewGuid(), "Book1", true),
+                new Book(Guid.NewGuid(), "Book2", true),
+                new Book(Guid.NewGuid(), "Book3", true),
+            };
+                    context.Books.AddRange(books);
+                }
 
-                List<Member> member = new List<Member>() {
+                if (!context.Memberships.Any())
+                {
+                    List<Member> members = new List<Member>
+            {
                 new Member(Guid.NewGuid(), "Member1"),
                 new Member(Guid.NewGuid(), "Member2"),
                 new Member(Guid.NewGuid(), "Member3"),
-                };
+            };
+                    context.Memberships.AddRange(members);
+                }
 
-                List<Member> borrowMember = new List<Member>() {
-                new Member(Guid.NewGuid(), "Member1"),
-                new Member(Guid.NewGuid(), "Member2"),
-                new Member(Guid.NewGuid(), "Member3"),
-                };
+                // Save changes to database
+                await context.SaveChangesAsync();
             }
         }
     }

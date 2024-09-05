@@ -1,8 +1,10 @@
+using Library.Domain.Entites;
 using Library.Infrastructure.Persistence;
 using LibraryManagment.Controllers.MinimialAPI;
 using LibraryManagment.Dependency;
 using LibraryManagment.Mapper;
 using LibraryManagment.Validator;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,12 +19,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddSingleton(AutoMapperConfig.CreateMapper());
 builder.Services.AddValidator();
 builder.Services.LoadModule();
 //EnableLogic.LoadModule(builder.Services);
 
 var app = builder.Build();
+
+// Call seed method after building the app
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await AppDbContextSeed.SeedDatabaseAsync(services);
+}
 
 try
 {
