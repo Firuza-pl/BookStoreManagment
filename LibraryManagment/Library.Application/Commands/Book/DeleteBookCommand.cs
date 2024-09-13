@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Infrastructure.Repositories;
-internal class BookRepository
+namespace Library.Application.Commands.Book
 {
+    internal class DeleteBookCommand
+    {
+    }
 }
