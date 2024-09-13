@@ -1,4 +1,4 @@
-﻿namespace Library.Application.Interfaces;
+﻿namespace Library.Application.Services.Interfaces;
 public interface IBookService
 {
     //Task<int> AddAsync(BookCreatedInput model);

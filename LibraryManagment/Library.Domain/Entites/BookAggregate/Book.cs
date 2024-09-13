@@ -1,6 +1,6 @@
-﻿using Library.Domain.DomainObj;
+﻿using Library.Domain.Core;
 
-namespace Library.Domain.Entites;
+namespace Library.Domain.Entites.BookAggregate;
 public class Book : Entity, IAggregateRoot
 {
     public Guid Id { get; set; }

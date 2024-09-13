@@ -1,5 +1,5 @@
-﻿
-using Library.Domain.Entites;
+﻿using Library.Domain.Entites.BookAggregate;
+using Library.Domain.Entites.MemberAggregate;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

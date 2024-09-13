@@ -1,4 +1,4 @@
-using Library.Domain.Entites;
+using Library.Domain.Entites.MemberAggregate;
 using Library.Infrastructure.Persistence;
 using LibraryManagment.Controllers.MinimialAPI;
 using LibraryManagment.Dependency;
