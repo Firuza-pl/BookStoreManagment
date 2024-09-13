@@ -1,4 +1,4 @@
-﻿namespace Library.Domain.Core;
+﻿namespace Library.Shared.Kernel.Core;
 public class Entity
 {
     public Guid Id { get; protected set; }

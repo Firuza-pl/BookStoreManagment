@@ -1,9 +1,8 @@
-﻿using Library.Domain.Core;
+﻿using Library.Shared.Kernel.Core;
 
 namespace Library.Domain.Entites.BookAggregate;
 public class Book : Entity, IAggregateRoot
 {
-    public Guid Id { get; set; }
     public string? Title { get; set; }
     public bool IsAvailable { get; set; }
     // Navigation property

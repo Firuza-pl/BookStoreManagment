@@ -1,10 +1,9 @@
-﻿using Library.Domain.Core;
-using Library.Domain.Entites.MemberAggregate;
+﻿using Library.Domain.Entites.MemberAggregate;
+using Library.Shared.Kernel.Core;
 
 namespace Library.Domain.Entites.BookAggregate;
 public class BorrowRecord : Entity, IAggregateRoot
 {
-    public Guid Id { get; set; }
     public Guid BookId { get; set; }
     public Guid MemberId { get; set; }
     public DateTime BorrowDate { get; set; }

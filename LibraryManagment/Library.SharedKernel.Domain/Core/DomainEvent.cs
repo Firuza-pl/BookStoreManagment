@@ -1,4 +1,4 @@
-﻿namespace Library.Domain.Core;
+﻿namespace Library.Shared.Kernel.Core;
 public class DomainEvent : IDomainEvent
 {
     public DateTime DateOccured { get; }
