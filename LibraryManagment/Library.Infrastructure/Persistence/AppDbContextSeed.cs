@@ -43,9 +43,6 @@ namespace Library.Infrastructure.Persistence
                 {
                     List<Book> books = new List<Book>
             {
-                new Book(Guid.NewGuid(), "Book1", true),
-                new Book(Guid.NewGuid(), "Book2", true),
-                new Book(Guid.NewGuid(), "Book3", true),
             };
                     context.Books.AddRange(books);
                 }
