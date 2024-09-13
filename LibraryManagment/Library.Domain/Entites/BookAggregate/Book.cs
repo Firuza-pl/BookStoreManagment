@@ -8,7 +8,7 @@ public class Book : Entity, IAggregateRoot
     public BookStatus IsAvailable { get; private set; }
     // Navigation property
     public ICollection<BorrowRecord>? BorrowRecords { get; set; }
-    public Book(Guid id, string? title, BookStatus isAvailable = BookStatus.Active) => (Id, Title, IsAvailable) = (id, title, isAvailable);
+    public Book(Guid id, string? title, BookStatus isAvailable = BookStatus.Active) => (Id, Title, IsAvailable) = (id, title, isAvailable); //add
     public void Edit(string? title)
     {
         Title = title;

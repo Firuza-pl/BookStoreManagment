@@ -10,6 +10,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     protected readonly IMapper _mapper;
     protected readonly ILogger _logger;
 
+    //adding UNitofwor here
+
     public DbSet<T> Entity => _context.Set<T>(); //access dbset for current type
 
     public GenericRepository(AppDbContext context, IMapper mapper, ILogger logger)
