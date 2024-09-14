@@ -10,7 +10,7 @@ public static class EnableLogic
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         //for book 
         services.AddScoped<IBookRepository, BookRepository>();
-        services.AddScoped<IGenericRepository<Book>, GenericRepository<Book>>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         //for member
 

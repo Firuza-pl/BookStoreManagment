@@ -1,5 +1,4 @@
-﻿using Library.Domain.Entites.BookAggregate;
-using Library.Domain.Interface;
+﻿using Library.Domain.Interface;
 using Library.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
@@ -8,7 +7,7 @@ namespace Library.Infrastructure.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _context;
-    private readonly ILogger<UnitOfWork> _logger;
+    private readonly ILogger<BookRepository> _logger;
     private IDbContextTransaction _dbContextTransaction;
     private bool _disposed = false;
 
@@ -20,7 +19,7 @@ public class UnitOfWork : IUnitOfWork
             return _bookRepository ??= new BookRepository(_context, _logger);
         }
     }
-    public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger)
+    public UnitOfWork(AppDbContext context, ILogger<BookRepository> logger)
     {
         _context = context;
         _logger = logger;

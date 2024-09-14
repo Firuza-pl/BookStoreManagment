@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library.Application.Commands.Books
+﻿using FluentValidation;
+namespace Library.Application.Commands.Books;
+public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
 {
-    internal class CreateBookCommandValidator
+    public CreateBookCommandValidator()
     {
+        RuleFor(x=>x.Title).NotEmpty();
     }
 }

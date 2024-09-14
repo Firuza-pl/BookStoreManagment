@@ -28,6 +28,10 @@ builder.Services.AddValidator();
 builder.Services.LoadModule();
 //EnableLogic.LoadModule(builder.Services);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole(); // or any other logging provider
+
+
 var app = builder.Build();
 
 // Call seed method after building the app

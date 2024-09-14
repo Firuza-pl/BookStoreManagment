@@ -1,5 +1,4 @@
 ﻿using MediatR;
-
 namespace Library.Application.Commands.Books;
 public class CreateBookCommand : IRequest<bool>
 {
