@@ -1,4 +1,5 @@
-﻿using Library.Domain.Interface;
+﻿using Library.Domain.Entites.BookAggregate;
+using Library.Domain.Interface;
 using Library.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,15 @@ public class UnitOfWork : IUnitOfWork
     private readonly ILogger<UnitOfWork> _logger;
     private IDbContextTransaction _dbContextTransaction;
     private bool _disposed = false;
+
+    private IBookRepository _bookRepository;
+    public IBookRepository BookRepository
+    {
+        get
+        {
+            return _bookRepository ??= new BookRepository(_context, _logger);
+        }
+    }
     public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger)
     {
         _context = context;
@@ -95,8 +105,8 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public Task Save()
+    public async Task Save()
     {
-        throw new NotImplementedException();
+        await _context.SaveChangesAsync();
     }
 }

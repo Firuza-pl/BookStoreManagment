@@ -8,7 +8,6 @@ namespace Library.Infrastructure.Repositories;
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     protected readonly AppDbContext _context;
-    protected readonly IMapper _mapper;
     protected readonly ILogger _logger;
 
     //adding UNitofwor here
@@ -17,10 +16,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 
     public IUnitOfWork UnitOfWork => _context as IUnitOfWork;
 
-    public GenericRepository(AppDbContext context, IMapper mapper, ILogger logger)
+    public GenericRepository(AppDbContext context, ILogger logger)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
