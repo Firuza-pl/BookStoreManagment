@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Application.Queries.Book
+namespace Library.Application.Commands.Books
 {
-    internal class BookQueries
+    internal class UpdateBookCommandValidator
     {
     }
 }
