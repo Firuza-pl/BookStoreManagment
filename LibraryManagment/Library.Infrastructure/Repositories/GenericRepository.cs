@@ -14,8 +14,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 
     public DbSet<T> Entity => _context.Set<T>(); //access dbset for current type
 
-    public IUnitOfWork UnitOfWork => _context as IUnitOfWork;
-
     public GenericRepository(AppDbContext context, ILogger<GenericRepository<T>> logger) { 
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

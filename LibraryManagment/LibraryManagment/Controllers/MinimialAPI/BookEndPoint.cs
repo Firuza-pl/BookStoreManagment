@@ -12,19 +12,20 @@ public static class BookEndPoint
 {
     public static void MapEndpoint(this IEndpointRouteBuilder app)
     {
+        //ADD
         app.MapPost("/api/createBook/", async (
-     [FromServices] IUnitOfWork unitOfWork,
-     [FromServices] ILogger<UnitOfWork> logger,
-     [FromBody] CreateBookCommand model,
-     [FromServices] IValidator<CreateBookCommand> validator) =>
+                 [FromServices] IUnitOfWork unitOfWork,
+                 [FromServices] ILogger<UnitOfWork> logger,
+                 [FromBody] CreateBookCommand model,
+                 [FromServices] IValidator<CreateBookCommand> validator) =>
         {
-            ApiResponse response = new ApiResponse();
+
+            ApiResponse response = new();
 
             try
             {
                 logger.LogInformation("Processing book creation");
 
-                // Validate the command (if validator is used)
                 var validationResult = await validator.ValidateAsync(model);
                 if (!validationResult.IsValid)
                 {
@@ -34,7 +35,14 @@ public static class BookEndPoint
                 var book = new Book(model.Id, model.Title);
 
                 // Add book to the repository via UnitOfWork
-                await unitOfWork.BookRepository.AddAsync(book);
+                var result = await unitOfWork.BookRepository.AddAsync(book);
+
+                if(result is null)
+                {
+                    response.Errors.Add(new Exception("error occured").ToString());
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                }
 
                 // Commit transaction
                 await unitOfWork.Save();
@@ -57,6 +65,17 @@ public static class BookEndPoint
  .Produces<ApiResponse>(500)
  .WithTags("Books");
 
+
+        //UPDATE
+
+
+        //DELETE
+
+
+        //GETALL
+
+
+        //GETBYID
 
 
     }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library.Application.Commands.Books
-{
-    internal class UpdateBookCommandValidator
+﻿namespace Library.Application.Commands.Books;
+    public class UpdateBookCommandValidator
     {
     }
-}
