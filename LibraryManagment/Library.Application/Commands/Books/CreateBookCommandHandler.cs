@@ -16,7 +16,7 @@ namespace Library.Application.Commands.Books
 
        public async Task<bool> Handle(CreateBookCommand createBookCommand, CancellationToken cancellationToken)
         {
-            var book = new Book(createBookCommand.Id, createBookCommand.Title);
+            var book = new Book(createBookCommand.Title);
 
             if(book is null)
             {
@@ -31,6 +31,7 @@ namespace Library.Application.Commands.Books
 
         }
 
+        // implementation for handling duplicate request,It just ensures that no other request exists with the same ID
         public class BookIdentifedCommandHandler : IdentifiedCommandHandler<CreateBookCommand, bool>
         {
             public BookIdentifedCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
