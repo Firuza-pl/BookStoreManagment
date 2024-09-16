@@ -24,7 +24,7 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
         _logger = logger;
     }
-    public async Task Commit()
+    public async Task CommitAsync()
     {
         try
         {
@@ -51,7 +51,7 @@ public class UnitOfWork : IUnitOfWork
         }
         catch (Exception)
         {
-            await Rollback();  //will call automatically rollback()
+            await RollbackAsync();  //will call automatically rollback()
             throw;
         }
         finally
@@ -81,7 +81,7 @@ public class UnitOfWork : IUnitOfWork
         GC.SuppressFinalize(this); //prevent finalizer from running , becasue resources already relased.
     }
 
-    public async Task Rollback()
+    public async Task RollbackAsync()
     {
         try
         {
@@ -104,8 +104,8 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public async Task Save()
+    public async Task<int> SaveAsync(CancellationToken cancellationToken)
     {
-        await _context.SaveChangesAsync();
+      return  await _context.SaveChangesAsync(cancellationToken);
     }
 }

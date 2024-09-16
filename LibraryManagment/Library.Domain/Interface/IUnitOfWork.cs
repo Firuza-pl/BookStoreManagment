@@ -6,9 +6,9 @@ namespace Library.Domain.Interface
     {
         IBookRepository BookRepository { get; }  //  Holds the specific repository for books
         Task CreateTransaction(); //start db transaction
-        Task Commit(); //if all operation resolved then commit 
-        Task Rollback(); //if womething wrong get all operations back
-        Task Save(); //save changes
+        Task CommitAsync(); //if all operation resolved then commit 
+        Task RollbackAsync(); //if womething wrong get all operations back
+        Task<int> SaveAsync(CancellationToken cancellationToken); //save changes
         void Dispose(); //release resources
 
     }

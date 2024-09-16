@@ -18,16 +18,22 @@ namespace Library.Application.Commands.Books
         {
             var book = new Book(createBookCommand.Id, createBookCommand.Title);
 
+            if(book is null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
             await _unitOfWork.BookRepository.AddAsync(book);
 
-            await _unitOfWork.Save();
+            await _unitOfWork.SaveAsync(cancellationToken);
+
             return true;
 
         }
 
-        public class CityCommandHandler : IdentifiedCommandHandler<CreateBookCommand, bool>
+        public class BookCommandHandler : IdentifiedCommandHandler<CreateBookCommand, bool>
         {
-            public CityCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
+            public BookCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
             {
             }
 

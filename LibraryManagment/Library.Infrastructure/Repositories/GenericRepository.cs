@@ -31,7 +31,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return entity;
     }
 
-    public async Task<T> GetAsync(int id)
+    public async Task<T> GetAsync(Guid id)
     {
         var result = await Entity.FindAsync(id);
         return result;
