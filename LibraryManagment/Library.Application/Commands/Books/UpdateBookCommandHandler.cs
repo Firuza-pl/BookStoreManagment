@@ -30,15 +30,10 @@ public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Guid>
 
     }
 
-    public class BookCommandHandler : IdentifiedCommandHandler<CreateBookCommand, bool>
+    public class BookIentifiedCommandHandler : IdentifiedCommandHandler<UpdateBookCommand, Guid>
     {
-        public BookCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
+        public BookIentifiedCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
         {
-        }
-
-        protected override bool CreateResultForDuplicateRequest()
-        {
-            return true; // Ignore duplicate requests
         }
     }
 

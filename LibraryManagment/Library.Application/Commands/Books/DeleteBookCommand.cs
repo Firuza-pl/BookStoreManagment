@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Library.Application.Commands.Books
 {
-    internal class DeleteBookCommand
+    public class DeleteBookCommand : IRequest<Guid>
     {
+        public Guid Id { get; set; }
+
+        public DeleteBookCommand(Guid id)
+        {
+            Id = id;
+        }
     }
 }

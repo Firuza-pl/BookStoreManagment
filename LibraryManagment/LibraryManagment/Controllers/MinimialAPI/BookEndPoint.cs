@@ -4,6 +4,7 @@ using Library.Application.DTO;
 using Library.Domain.Entites.BookAggregate;
 using Library.Domain.Interface;
 using Library.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -14,7 +15,7 @@ public static class BookEndPoint
     {
         //ADD
         app.MapPost("/api/createBook/", async (
-                 [FromServices] IUnitOfWork unitOfWork,
+               [FromServices] IMediator mediatr,
                  [FromServices] ILogger<UnitOfWork> logger,
                  [FromBody] CreateBookCommand model,
                  [FromServices] IValidator<CreateBookCommand> validator, CancellationToken cancellationToken) =>
@@ -32,23 +33,17 @@ public static class BookEndPoint
                     return Results.BadRequest(validationResult.Errors);
                 }
 
-                var book = new Book(model.Id, model.Title);
+                var result = await mediatr.Send(model, cancellationToken);  //controller send Command to Mediatr instance, and Mediatr route Command to correspanding Handler;
 
-                // Add book to the repository via UnitOfWork
-                var result = await unitOfWork.BookRepository.AddAsync(book);
-
-                if(result is null)
+                if (result == false)
                 {
                     response.Errors.Add(new Exception("error occured").ToString());
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.NotFound;
                 }
 
-                // Commit transaction
-                await unitOfWork.SaveAsync(cancellationToken);
-
                 response.IsSuccess = true;
-                response.Result = book;
+                response.Result = result;
                 response.StatusCode = HttpStatusCode.OK;
 
                 return Results.Ok(response.Result);
@@ -68,8 +63,8 @@ public static class BookEndPoint
 
         //UPDATE
 
-        app.MapPost("/api/updateBook/", async (
-                 [FromServices] IUnitOfWork unitOfWork,
+        app.MapPut("/api/updateBook/", async (
+                [FromServices] IMediator mediatr,
                  [FromServices] ILogger<UnitOfWork> logger,
                  [FromBody] UpdateBookCommand model,
                  [FromServices] IValidator<UpdateBookCommand> validator, CancellationToken cancellationToken) =>
@@ -87,21 +82,15 @@ public static class BookEndPoint
                     return Results.BadRequest(validationResult.Errors);
                 }
 
+                //all Edit,repostitory,unitofwork are handled in UpdateCommandHandler
+                var result = await mediatr.Send(model, cancellationToken);
 
-                // Add book to the repository via UnitOfWork
-                var result = await unitOfWork.BookRepository.GetAsync(model.Id);
-
-                result.Edit(model.Title);
-
-                if (result is null)
+                if (result == Guid.Empty)
                 {
                     response.Errors.Add(new Exception("error occured").ToString());
                     response.IsSuccess = false;
                     response.StatusCode = HttpStatusCode.NotFound;
                 }
-
-                // Commit transaction
-                await unitOfWork.SaveAsync(cancellationToken);
 
                 response.IsSuccess = true;
                 response.Result = result;
@@ -124,6 +113,56 @@ public static class BookEndPoint
 
         //DELETE
 
+        app.MapDelete("/api/deleteBook/", async (
+           [FromServices] IMediator mediatr,
+            [FromServices] ILogger<IMediator> logger,
+            [FromBody] DeleteBookCommand model,
+            [FromServices] IValidator<DeleteBookCommand> validator, CancellationToken cancellationToken) =>
+        {
+
+            ApiResponse response = new();
+
+            try
+            {
+                logger.LogInformation("Processing book delete");
+
+                var validationResult = await validator.ValidateAsync(model);
+                if (!validationResult.IsValid)
+                {
+                    return Results.BadRequest(validationResult.Errors);
+                }
+
+                var result = await mediatr.Send(model, cancellationToken);
+
+                if (result == Guid.Empty)
+                {
+                    response.Errors.Add(new Exception("error occured").ToString());
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                }
+
+                response.IsSuccess = true;
+                response.Result = result;
+                response.StatusCode = HttpStatusCode.OK;
+
+                return Results.Ok(response.Result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while update a book");
+
+                response.IsSuccess = false;
+                response.Errors.Add(ex.Message);  // Add the error message to the response
+                response.StatusCode = HttpStatusCode.InternalServerError;
+
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        })
+.WithName("DeleteBook")
+.Produces<ApiResponse>(200)
+.Produces<ApiResponse>(400)
+.Produces<ApiResponse>(500)
+.WithTags("Books");
 
         //GETALL
 

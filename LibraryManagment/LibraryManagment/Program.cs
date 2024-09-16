@@ -1,3 +1,4 @@
+using Library.Application.Commands.Books;
 using Library.Domain.Entites.MemberAggregate;
 using Library.Infrastructure.Persistence;
 using LibraryManagment.Controllers.MinimialAPI;
@@ -6,6 +7,8 @@ using LibraryManagment.Mapper;
 using LibraryManagment.Validator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+// Register MediatR and specify the assembly to scan
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddSingleton(AutoMapperConfig.CreateMapper());
 builder.Services.AddValidator();

@@ -31,9 +31,9 @@ namespace Library.Application.Commands.Books
 
         }
 
-        public class BookCommandHandler : IdentifiedCommandHandler<CreateBookCommand, bool>
+        public class BookIdentifedCommandHandler : IdentifiedCommandHandler<CreateBookCommand, bool>
         {
-            public BookCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
+            public BookIdentifedCommandHandler(IMediator mediator, IRequestManager requestManager) : base(mediator, requestManager)
             {
             }
 

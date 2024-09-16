@@ -7,5 +7,9 @@ public static class ValidatorConfigurations
     public static void AddValidator(this IServiceCollection services)
     {
         services.AddValidatorsFromAssemblyContaining<CreateBookCommandValidator>();
+        services.AddValidatorsFromAssemblyContaining<UpdateBookCommandValidator>();
+        services.AddValidatorsFromAssemblyContaining<DeleteBookCommandValidator>();
+
+
     }
 }
