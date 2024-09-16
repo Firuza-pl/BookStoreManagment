@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Library.Application.ViewModel.Books;
+using Library.Infrastructure.Services.Queries;
 
 namespace Library.Application.Queries.Books
 {
-    internal interface IBookQueries
+    public interface IBookQueries : IQuery
     {
+        Task<IEnumerable<GetBookDTO>> GetAllAsync();
+        Task<IEnumerable<GetBookDTO>> GetActiveAsync();
+        Task<GetBookDTO> GetByIdAsync(Guid id);
     }
 }

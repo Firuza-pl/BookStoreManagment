@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Library.Application.Commands.Books;
 using Library.Application.DTO;
+using Library.Application.Queries.Books;
 using Library.Domain.Entites.BookAggregate;
 using Library.Domain.Interface;
 using Library.Infrastructure.Repositories;
@@ -164,10 +165,142 @@ public static class BookEndPoint
 .Produces<ApiResponse>(500)
 .WithTags("Books");
 
-        //GETALL
+        //GETALL-non and active
+
+        app.MapGet("/api/getAllBook/", async (
+            [FromServices] ILogger<IBookQueries> logger,
+            IBookQueries queries) =>
+        {
+
+            ApiResponse response = new();
+
+            try
+            {
+                logger.LogInformation("Processing book getting");
+
+                var result = await queries.GetAllAsync();
+
+                if (result is null)
+                {
+                    response.Errors.Add(new Exception("error occured").ToString());
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                }
+
+                response.IsSuccess = true;
+                response.Result = result;
+                response.StatusCode = HttpStatusCode.OK;
+
+                return Results.Ok(response.Result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while getting all a book");
+
+                response.IsSuccess = false;
+                response.Errors.Add(ex.Message);  // Add the error message to the response
+                response.StatusCode = HttpStatusCode.InternalServerError;
+
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        })
+.WithName("GetNonActiveBook")
+.Produces<ApiResponse>(200)
+.Produces<ApiResponse>(400)
+.Produces<ApiResponse>(500)
+.WithTags("Books");
+
+
+        //GetActive
+
+        app.MapGet("/api/getActiveBook/", async (
+            [FromServices] ILogger<IBookQueries> logger,
+            IBookQueries queries) =>
+        {
+
+            ApiResponse response = new();
+
+            try
+            {
+                logger.LogInformation("Processing getting only active book");
+
+                var result = await queries.GetActiveAsync();
+
+                if (result is null)
+                {
+                    response.Errors.Add(new Exception("error occured").ToString());
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                }
+
+                response.IsSuccess = true;
+                response.Result = result;
+                response.StatusCode = HttpStatusCode.OK;
+
+                return Results.Ok(response.Result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while getting only active book");
+
+                response.IsSuccess = false;
+                response.Errors.Add(ex.Message);  // Add the error message to the response
+                response.StatusCode = HttpStatusCode.InternalServerError;
+
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        })
+.WithName("GetAllActiveBook")
+.Produces<ApiResponse>(200)
+.Produces<ApiResponse>(400)
+.Produces<ApiResponse>(500)
+.WithTags("Books");
+
 
 
         //GETBYID
+        app.MapGet("/api/getSingleBook/{id:Guid}", async (Guid id,
+        [FromServices] ILogger<IBookQueries> logger,
+        IBookQueries queries) =>
+        {
+
+            ApiResponse response = new();
+
+            try
+            {
+                logger.LogInformation("Processing book getting");
+
+                var result = await queries.GetByIdAsync(id);
+
+                if (result is null)
+                {
+                    response.Errors.Add(new Exception("error occured").ToString());
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                }
+
+                response.IsSuccess = true;
+                response.Result = result;
+                response.StatusCode = HttpStatusCode.OK;
+
+                return Results.Ok(response.Result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while getting single a book");
+
+                response.IsSuccess = false;
+                response.Errors.Add(ex.Message);  // Add the error message to the response
+                response.StatusCode = HttpStatusCode.InternalServerError;
+
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        })
+.WithName("GetByIdBook")
+.Produces<ApiResponse>(200)
+.Produces<ApiResponse>(400)
+.Produces<ApiResponse>(500)
+.WithTags("Books");
 
 
     }

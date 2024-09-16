@@ -1,5 +1,10 @@
-﻿namespace Library.Application.ViewModel.Books;
+﻿using Library.SharedKernel.Domain.Enums;
 
-internal class GetBookDTO
+namespace Library.Application.ViewModel.Books;
+
+public class GetBookDTO
 {
+    public Guid Id { get; set; }
+    public string? Title { get; set; }
+    public BookStatus? IsAvailable { get; set; }
 }

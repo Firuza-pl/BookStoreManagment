@@ -8,7 +8,8 @@ public class UpdateBookCommand : IRequest<Guid>
 
     public UpdateBookCommand(Guid id, string? title)
     {
-        Id= id;
-        Title= title;
+        Id = id;
+        Title = title;
     }
+
 }

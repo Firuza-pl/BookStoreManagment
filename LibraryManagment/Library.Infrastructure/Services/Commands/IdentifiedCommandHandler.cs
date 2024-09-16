@@ -1,4 +1,5 @@
-﻿using Library.Infrastructure.Idempotency;
+﻿using Azure.Core;
+using Library.Infrastructure.Idempotency;
 using MediatR;
 
 namespace Library.Infrastructure.Services.Commands
@@ -20,7 +21,7 @@ namespace Library.Infrastructure.Services.Commands
             _mediator = mediator;
             _requestManager = requestManager;
         }
-
+       
         /// <summary>
         ///     This method handles the command. It just ensures that no other request exists with the same ID, and if this is the
         ///     case
