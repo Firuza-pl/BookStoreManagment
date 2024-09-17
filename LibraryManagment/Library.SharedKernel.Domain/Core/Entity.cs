@@ -6,7 +6,7 @@ public class Entity
     private readonly List<IDomainEvent> _eventList = new List<IDomainEvent>();
     public Entity()
     {
-        Id = Guid.NewGuid();
+        Id = Guid.NewGuid(); //ID will generate Automatically
     }
 
     public void AddDomainEvent(IDomainEvent domainEvent)

@@ -51,9 +51,9 @@ namespace Library.Infrastructure.Persistence
                 {
                     List<Member> members = new List<Member>
             {
-                new Member(Guid.NewGuid(), "Member1"),
-                new Member(Guid.NewGuid(), "Member2"),
-                new Member(Guid.NewGuid(), "Member3"),
+                new Member( "Member1"),
+                new Member( "Member2"),
+                new Member( "Member3"),
             };
                     context.Memberships.AddRange(members);
                 }
