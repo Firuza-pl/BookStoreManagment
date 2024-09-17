@@ -47,9 +47,12 @@ using (var scope = app.Services.CreateScope())
     await AppDbContextSeed.SeedDatabaseAsync(services);
 }
 
+///register Endpoints
 try
 {
-    app.MapEndpoint();
+    app.MapBookEndpoint();
+    app.MapMemberEndpoint();
+
 }
 catch (Exception ex)
 {

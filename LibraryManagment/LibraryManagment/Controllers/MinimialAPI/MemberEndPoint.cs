@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Library.Application.Commands.Books;
+using Library.Application.Commands.Members;
 using Library.Application.DTO;
 using Library.Application.Queries.Books;
 using Library.Infrastructure.Repositories;
@@ -8,23 +9,23 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace LibraryManagment.Controllers.MinimialAPI;
-public static class BookEndPoint
+public static class MemberEndPoint
 {
-    public static void MapBookEndpoint(this IEndpointRouteBuilder app)
+    public static void MapMemberEndpoint(this IEndpointRouteBuilder app)
     {
         //ADD
-        app.MapPost("/api/createBook/", async (
+        app.MapPost("/api/createMember/", async (
                [FromServices] IMediator mediatr,
                  [FromServices] ILogger<UnitOfWork> logger,
-                 [FromBody] CreateBookCommand model,
-                 [FromServices] IValidator<CreateBookCommand> validator, CancellationToken cancellationToken) =>
+                 [FromBody] CreateMemberCommand model,
+                 [FromServices] IValidator<CreateMemberCommand> validator, CancellationToken cancellationToken) =>
         {
 
             ApiResponse response = new();
 
             try
             {
-                logger.LogInformation("Processing book creation");
+                logger.LogInformation("Processing member creation");
 
                 var validationResult = await validator.ValidateAsync(model);
                 if (!validationResult.IsValid)
@@ -32,7 +33,7 @@ public static class BookEndPoint
                     return Results.BadRequest(validationResult.Errors);
                 }
 
-                var result = await mediatr.Send(model, cancellationToken);  //controller send Command to Mediatr instance, and Mediatr route Command to correspanding Handler;
+                var result = await mediatr.Send(model, cancellationToken); 
 
                 if (result == false)
                 {
@@ -49,30 +50,31 @@ public static class BookEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while creating a book");
+                logger.LogError(ex, "An error occurred while creating a member");
                 return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
         })
- .WithName("CreatedBook")
+ .WithName("CreatedMember")
  .Produces<ApiResponse>(200)
  .Produces<ApiResponse>(400)
  .Produces<ApiResponse>(500)
- .WithTags("Books");
+ .WithTags("Members");
 
 
         //UPDATE
-        app.MapPut("/api/updateBook/", async (
+
+        app.MapPut("/api/updateMember/", async (
                 [FromServices] IMediator mediatr,
                  [FromServices] ILogger<UnitOfWork> logger,
-                 [FromBody] UpdateBookCommand model,
-                 [FromServices] IValidator<UpdateBookCommand> validator, CancellationToken cancellationToken) =>
+                 [FromBody] UpdateMemberCommand model,
+                 [FromServices] IValidator<UpdateMemberCommand> validator, CancellationToken cancellationToken) =>
         {
 
             ApiResponse response = new();
 
             try
             {
-                logger.LogInformation("Processing book update");
+                logger.LogInformation("Processing Member update");
 
                 var validationResult = await validator.ValidateAsync(model);
                 if (!validationResult.IsValid)
@@ -80,7 +82,7 @@ public static class BookEndPoint
                     return Results.BadRequest(validationResult.Errors);
                 }
 
-                //all Edit,repostitory,unitofwork are handled in UpdateCommandHandler
+
                 var result = await mediatr.Send(model, cancellationToken);
 
                 if (result == Guid.Empty)
@@ -98,30 +100,31 @@ public static class BookEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while update a book");
+                logger.LogError(ex, "An error occurred while update a Member");
                 return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
         })
- .WithName("UpdatedBook")
+ .WithName("UpdatedMember")
  .Produces<ApiResponse>(200)
  .Produces<ApiResponse>(400)
  .Produces<ApiResponse>(500)
- .WithTags("Books");
+ .WithTags("Members");
 
 
         //DELETE
-        app.MapDelete("/api/deleteBook/", async (
+
+        app.MapDelete("/api/deleteMember/", async (
            [FromServices] IMediator mediatr,
             [FromServices] ILogger<IMediator> logger,
-            [FromBody] DeleteBookCommand model,
-            [FromServices] IValidator<DeleteBookCommand> validator, CancellationToken cancellationToken) =>
+            [FromBody] DeleteMemberCommand model,
+            [FromServices] IValidator<DeleteMemberCommand> validator, CancellationToken cancellationToken) =>
         {
 
             ApiResponse response = new();
 
             try
             {
-                logger.LogInformation("Processing book delete");
+                logger.LogInformation("Processing Member delete");
 
                 var validationResult = await validator.ValidateAsync(model);
                 if (!validationResult.IsValid)
@@ -146,7 +149,7 @@ public static class BookEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while update a book");
+                logger.LogError(ex, "An error occurred while update a Member");
 
                 response.IsSuccess = false;
                 response.Errors.Add(ex.Message);  // Add the error message to the response
@@ -155,14 +158,15 @@ public static class BookEndPoint
                 return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
         })
-.WithName("DeleteBook")
+.WithName("DeleteMember")
 .Produces<ApiResponse>(200)
 .Produces<ApiResponse>(400)
 .Produces<ApiResponse>(500)
-.WithTags("Books");
+.WithTags("Members");
 
         //GETALL-non and active
-        app.MapGet("/api/getAllBook/", async (
+
+        app.MapGet("/api/getAllMember/", async (
             [FromServices] ILogger<IBookQueries> logger,
             IBookQueries queries) =>
         {
@@ -171,7 +175,7 @@ public static class BookEndPoint
 
             try
             {
-                logger.LogInformation("Processing book getting");
+                logger.LogInformation("Processing Member getting");
 
                 var result = await queries.GetAllAsync();
 
@@ -190,7 +194,7 @@ public static class BookEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while getting all a book");
+                logger.LogError(ex, "An error occurred while getting all a Member");
 
                 response.IsSuccess = false;
                 response.Errors.Add(ex.Message);  // Add the error message to the response
@@ -199,15 +203,16 @@ public static class BookEndPoint
                 return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
         })
-.WithName("GetNonActiveBook")
+.WithName("GetNonActiveMember")
 .Produces<ApiResponse>(200)
 .Produces<ApiResponse>(400)
 .Produces<ApiResponse>(500)
-.WithTags("Books");
+.WithTags("Members");
 
 
         //GetActive
-        app.MapGet("/api/getActiveBook/", async (
+
+        app.MapGet("/api/getActiveMember/", async (
             [FromServices] ILogger<IBookQueries> logger,
             IBookQueries queries) =>
         {
@@ -216,7 +221,7 @@ public static class BookEndPoint
 
             try
             {
-                logger.LogInformation("Processing getting only active book");
+                logger.LogInformation("Processing getting only active Member");
 
                 var result = await queries.GetActiveAsync();
 
@@ -235,7 +240,7 @@ public static class BookEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while getting only active book");
+                logger.LogError(ex, "An error occurred while getting only active Member");
 
                 response.IsSuccess = false;
                 response.Errors.Add(ex.Message);  // Add the error message to the response
@@ -244,15 +249,16 @@ public static class BookEndPoint
                 return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
         })
-.WithName("GetAllActiveBook")
+.WithName("GetAllActiveMember")
 .Produces<ApiResponse>(200)
 .Produces<ApiResponse>(400)
 .Produces<ApiResponse>(500)
-.WithTags("Books");
+.WithTags("Members");
+
 
 
         //GETBYID
-        app.MapGet("/api/getSingleBook/{id:Guid}", async (Guid id,
+        app.MapGet("/api/getSingleMember/{id:Guid}", async (Guid id,
         [FromServices] ILogger<IBookQueries> logger,
         IBookQueries queries) =>
         {
@@ -261,7 +267,7 @@ public static class BookEndPoint
 
             try
             {
-                logger.LogInformation("Processing book getting");
+                logger.LogInformation("Processing Member getting");
 
                 var result = await queries.GetByIdAsync(id);
 
@@ -280,7 +286,7 @@ public static class BookEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while getting single a book");
+                logger.LogError(ex, "An error occurred while getting single a Member");
 
                 response.IsSuccess = false;
                 response.Errors.Add(ex.Message);  // Add the error message to the response
@@ -289,11 +295,11 @@ public static class BookEndPoint
                 return Results.StatusCode((int)HttpStatusCode.InternalServerError);
             }
         })
-.WithName("GetByIdBook")
+.WithName("GetByIdMember")
 .Produces<ApiResponse>(200)
 .Produces<ApiResponse>(400)
 .Produces<ApiResponse>(500)
-.WithTags("Books");
+.WithTags("Members");
 
 
     }

@@ -1,6 +1,7 @@
 ﻿using Library.Application.Commands.Books;
 using Library.Application.Commands.Members;
 using Library.Application.Queries.Books;
+using Library.Application.Queries.Members;
 using Library.Domain.Interface;
 using Library.Infrastructure.Idempotency;
 using Library.Infrastructure.Repositories;
@@ -17,8 +18,8 @@ public static class EnableLogic
             cfg.RegisterServicesFromAssemblies(typeof(DeleteBookCommandHandler).Assembly);
 
             cfg.RegisterServicesFromAssemblies(typeof(CreateMemberCommandHandler).Assembly);
-            //cfg.RegisterServicesFromAssemblies(typeof(UpdateBookCommandHandler).Assembly);
-            //cfg.RegisterServicesFromAssemblies(typeof(DeleteBookCommandHandler).Assembly);
+            cfg.RegisterServicesFromAssemblies(typeof(UpdateMemberCommandHandler).Assembly);
+            cfg.RegisterServicesFromAssemblies(typeof(DeleteMemberCommandHandler).Assembly);
         });
 
         //repos for general
@@ -32,6 +33,7 @@ public static class EnableLogic
 
         //queries 
         services.AddScoped<IBookQueries, BookQueries>();
+        services.AddScoped<IMemberQueries, MemberQueries>();
 
 
     }
