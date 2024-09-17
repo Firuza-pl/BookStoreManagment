@@ -1,4 +1,6 @@
 ﻿namespace Library.Application.ViewModel.Members;
-internal class GetMemberDTO
+public class GetMemberDTO
 {
+    public Guid Id { get; set; }
+    public string? Title { get; set; }
 }

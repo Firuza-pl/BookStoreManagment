@@ -21,6 +21,9 @@ public class CreateMemberCommandHandler : IRequestHandler<CreateMemberCommand, b
             throw new ArgumentNullException(nameof(member));
         }
 
+
+        //MUST TO DO: Adding member to user table 
+
         var result = await _unitOfWork.MemberRepository.AddAsync(member);
 
         await _unitOfWork.SaveAsync(cancellationToken);
