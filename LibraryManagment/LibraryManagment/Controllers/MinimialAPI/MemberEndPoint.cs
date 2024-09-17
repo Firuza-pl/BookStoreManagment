@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Library.Application.Commands.Books;
 using Library.Application.Commands.Members;
 using Library.Application.DTO;
 using Library.Application.Queries.Books;
+using Library.Application.Queries.Members;
 using Library.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -167,8 +167,8 @@ public static class MemberEndPoint
         //GETALL-non and active
 
         app.MapGet("/api/getAllMember/", async (
-            [FromServices] ILogger<IBookQueries> logger,
-            IBookQueries queries) =>
+            [FromServices] ILogger<IMemberQueries> logger,
+            IMemberQueries queries) =>
         {
 
             ApiResponse response = new();
@@ -213,8 +213,8 @@ public static class MemberEndPoint
         //GetActive
 
         app.MapGet("/api/getActiveMember/", async (
-            [FromServices] ILogger<IBookQueries> logger,
-            IBookQueries queries) =>
+            [FromServices] ILogger<IMemberQueries> logger,
+            IMemberQueries queries) =>
         {
 
             ApiResponse response = new();
@@ -259,8 +259,8 @@ public static class MemberEndPoint
 
         //GETBYID
         app.MapGet("/api/getSingleMember/{id:Guid}", async (Guid id,
-        [FromServices] ILogger<IBookQueries> logger,
-        IBookQueries queries) =>
+        [FromServices] ILogger<IMemberQueries> logger,
+        IMemberQueries queries) =>
         {
 
             ApiResponse response = new();

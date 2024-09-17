@@ -23,6 +23,7 @@ public class CreateMemberCommandHandler : IRequestHandler<CreateMemberCommand, b
 
 
         //MUST TO DO: Adding member to user table 
+        //MUST TO DO: Add image and use MinIO system
 
         var result = await _unitOfWork.MemberRepository.AddAsync(member);
 

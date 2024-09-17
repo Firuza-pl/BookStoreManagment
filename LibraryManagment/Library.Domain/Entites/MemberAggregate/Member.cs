@@ -9,7 +9,7 @@ public class Member : Entity, IAggregateRoot
     public MemberStatus IsAvailable { get; private set; }
     //other prop can included, this is just testing
     public ICollection<BorrowRecord>? BorrowRecords { get; private set; }
-    public Member(string? name, MemberStatus isAvailable = MemberStatus.Active) => (Name, IsAvailable) = (Name, isAvailable); //add
+    public Member(string? name, MemberStatus isAvailable = MemberStatus.Active) => (Name, IsAvailable) = (name, isAvailable); //add
 
     public void Edit(string? name)
     {

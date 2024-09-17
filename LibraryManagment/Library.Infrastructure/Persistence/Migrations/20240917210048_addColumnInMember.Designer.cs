@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240917201903_addColumnInMember")]
+    [Migration("20240917210048_addColumnInMember")]
     partial class addColumnInMember
     {
         /// <inheritdoc />

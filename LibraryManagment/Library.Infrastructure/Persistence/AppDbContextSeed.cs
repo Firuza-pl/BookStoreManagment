@@ -1,5 +1,6 @@
 ﻿using Library.Domain.Entites.BookAggregate;
 using Library.Domain.Entites.MemberAggregate;
+using Library.SharedKernel.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -42,8 +43,11 @@ namespace Library.Infrastructure.Persistence
                 if (!context.Books.Any())
                 {
                     List<Book> books = new List<Book>
-            {
-            };
+                    {
+                        new Book("Book1", BookStatus.Active),
+                        new Book("Book2", BookStatus.Active),
+                        new Book("Book3", BookStatus.Deleted),
+                    };
                     context.Books.AddRange(books);
                 }
 
@@ -51,9 +55,9 @@ namespace Library.Infrastructure.Persistence
                 {
                     List<Member> members = new List<Member>
             {
-                new Member( "Member1"),
-                new Member( "Member2"),
-                new Member( "Member3"),
+                        new Member("Member1", MemberStatus.Active),
+                        new Member("Member2", MemberStatus.Active),
+                        new Member("Member3", MemberStatus.Deactive),
             };
                     context.Memberships.AddRange(members);
                 }
