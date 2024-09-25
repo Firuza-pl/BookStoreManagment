@@ -1,12 +1,12 @@
-﻿using Library.Domain.Entites.BookAggregate;
-
-namespace Library.Domain.Interface
+﻿namespace Library.Domain.Interface
 {
     public interface IUnitOfWork
     {
         //repos
         IBookRepository BookRepository { get; }  //  Holds the specific repository for books
-        IMemberRepository MemberRepository { get; } 
+        IMemberRepository MemberRepository { get; }
+        IBorrowBookRepository BorrowBookRepository { get; }
+
 
         //general operations
         Task CreateTransaction(); //start db transaction

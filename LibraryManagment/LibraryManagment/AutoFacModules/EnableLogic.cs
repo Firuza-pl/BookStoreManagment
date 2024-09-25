@@ -1,6 +1,8 @@
 ﻿using Library.Application.Commands.Books;
+using Library.Application.Commands.BorrowRecords;
 using Library.Application.Commands.Members;
 using Library.Application.Queries.Books;
+using Library.Application.Queries.BorrowRecords;
 using Library.Application.Queries.Members;
 using Library.Domain.Interface;
 using Library.Infrastructure.Idempotency;
@@ -20,6 +22,10 @@ public static class EnableLogic
             cfg.RegisterServicesFromAssemblies(typeof(CreateMemberCommandHandler).Assembly);
             cfg.RegisterServicesFromAssemblies(typeof(UpdateMemberCommandHandler).Assembly);
             cfg.RegisterServicesFromAssemblies(typeof(DeleteMemberCommandHandler).Assembly);
+
+            cfg.RegisterServicesFromAssemblies(typeof(CreateRecordCommandHandler).Assembly);
+            cfg.RegisterServicesFromAssemblies(typeof(UpdateRecordCommandHandler).Assembly);
+            cfg.RegisterServicesFromAssemblies(typeof(DeleteRecordCommandHandler).Assembly);
         });
 
         //repos for general
@@ -30,10 +36,14 @@ public static class EnableLogic
         //command 
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<IBorrowBookRepository, BorrowBookRepository>();
+
 
         //queries 
         services.AddScoped<IBookQueries, BookQueries>();
         services.AddScoped<IMemberQueries, MemberQueries>();
+        services.AddScoped<IRecordQueries, RecordQueries>();
+
 
 
     }

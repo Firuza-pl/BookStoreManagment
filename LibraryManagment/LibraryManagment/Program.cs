@@ -7,7 +7,6 @@ using LibraryManagment.Mapper;
 using LibraryManagment.Validator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,6 +51,7 @@ try
 {
     app.MapBookEndpoint();
     app.MapMemberEndpoint();
+    app.MapRecordEndpoint();
 
 }
 catch (Exception ex)

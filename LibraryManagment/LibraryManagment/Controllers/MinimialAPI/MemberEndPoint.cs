@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using Library.Application.Commands.Members;
 using Library.Application.DTO;
-using Library.Application.Queries.Books;
 using Library.Application.Queries.Members;
 using Library.Infrastructure.Repositories;
 using MediatR;
@@ -149,7 +148,7 @@ public static class MemberEndPoint
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred while update a Member");
+                logger.LogError(ex, "An error occurred while delete a Member");
 
                 response.IsSuccess = false;
                 response.Errors.Add(ex.Message);  // Add the error message to the response

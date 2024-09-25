@@ -9,6 +9,8 @@ public class UnitOfWork : IUnitOfWork
     private readonly AppDbContext _context;
     private readonly ILogger<BookRepository> _logger;
     private readonly ILogger<MemberRepository> _loggerMember;
+    private readonly ILogger<BorrowBookRepository> _loggerBorrow;
+
     private IDbContextTransaction _dbContextTransaction;
     private bool _disposed = false;
 
@@ -28,11 +30,19 @@ public class UnitOfWork : IUnitOfWork
     }
 
 
-    public UnitOfWork(AppDbContext context, ILogger<BookRepository> logger, ILogger<MemberRepository> loggerMember)
+    private IBorrowBookRepository _borrowBookRepository;
+    public IBorrowBookRepository BorrowBookRepository
+    {
+        get { return _borrowBookRepository ?? new BorrowBookRepository(_context, _loggerBorrow); }
+    }
+
+
+    public UnitOfWork(AppDbContext context, ILogger<BookRepository> logger, ILogger<MemberRepository> loggerMember, ILogger<BorrowBookRepository> loggerRecord)
     {
         _context = context;
         _logger = logger;
         _loggerMember = loggerMember;
+        _loggerBorrow = loggerRecord;
     }
     public async Task CommitAsync()
     {
