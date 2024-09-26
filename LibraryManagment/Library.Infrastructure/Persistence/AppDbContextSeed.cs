@@ -46,7 +46,7 @@ namespace Library.Infrastructure.Persistence
                     {
                         new Book("Book1", BookStatus.Active),
                         new Book("Book2", BookStatus.Active),
-                        new Book("Book3", BookStatus.Deleted),
+                        new Book("Book3", BookStatus.DeActive),
                     };
                     context.Books.AddRange(books);
                 }

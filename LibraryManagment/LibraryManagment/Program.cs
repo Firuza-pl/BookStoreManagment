@@ -1,4 +1,5 @@
 using Library.Application.Commands.Books;
+using Library.Application.EventHandler;
 using Library.Domain.Entites.MemberAggregate;
 using Library.Infrastructure.Persistence;
 using LibraryManagment.Controllers.MinimialAPI;
@@ -28,6 +29,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 // Register MediatR and specify the assembly to scan
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
+
 builder.Services.AddSingleton(AutoMapperConfig.CreateMapper());
 builder.Services.AddValidator();
 builder.Services.LoadModule();
@@ -35,7 +37,7 @@ builder.Services.LoadModule();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(); // or any other logging provider
-
+builder.Services.AddLogging();
 
 var app = builder.Build();
 
@@ -51,7 +53,6 @@ try
 {
     app.MapBookEndpoint();
     app.MapMemberEndpoint();
-    app.MapRecordEndpoint();
 
 }
 catch (Exception ex)

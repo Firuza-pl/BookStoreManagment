@@ -1,10 +1,14 @@
-﻿using FluentValidation;
+﻿using Azure;
+using FluentValidation;
 using Library.Application.Commands.Books;
 using Library.Application.DTO;
 using Library.Application.Queries.Books;
+using Library.Domain.Entites.BookAggregate;
+using Library.Domain.Events;
 using Library.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Net;
 
 namespace LibraryManagment.Controllers.MinimialAPI;
@@ -290,6 +294,56 @@ public static class BookEndPoint
             }
         })
 .WithName("GetByIdBook")
+.Produces<ApiResponse>(200)
+.Produces<ApiResponse>(400)
+.Produces<ApiResponse>(500)
+.WithTags("Books");
+
+
+
+        //bookborrowing
+
+        app.MapPost("/api/borrowBook", async (
+             [FromServices] ILogger<UnitOfWork> logger,
+    [FromServices] IMediator mediator,
+    [FromBody] CreateBorrowBookCommand command,
+    CancellationToken cancellationToken) =>
+        {
+            ApiResponse response = new();
+
+            try
+            {
+
+                logger.LogInformation("Processing book borrowing");
+
+                var result = await mediator.Send(command, cancellationToken);
+
+                if (result is false)
+                {
+                    response.Errors.Add(new Exception("error occured").ToString());
+                    response.IsSuccess = false;
+                    response.StatusCode = HttpStatusCode.NotFound;
+                }
+
+                response.IsSuccess = true;
+                response.Result = result;
+                response.StatusCode = HttpStatusCode.OK;
+
+                return Results.Ok(response.Result);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while borrowing a book");
+
+                response.IsSuccess = false;
+                response.Errors.Add(ex.Message);
+                response.StatusCode = HttpStatusCode.InternalServerError;
+
+                return Results.StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+        })
+.WithName("borrowBook")
 .Produces<ApiResponse>(200)
 .Produces<ApiResponse>(400)
 .Produces<ApiResponse>(500)

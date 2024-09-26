@@ -18,7 +18,7 @@ namespace Library.Application.Queries.Books
 
         public async Task<IEnumerable<GetBookDTO>> GetAllAsync()
         {
-            var entity = await _context.Books.Where(x => x.IsAvailable == BookStatus.Active || x.IsAvailable == BookStatus.Deleted).ToListAsync();
+            var entity = await _context.Books.Where(x => x.IsAvailable == BookStatus.Active || x.IsAvailable == BookStatus.DeActive).ToListAsync();
             if (entity is null)
                 throw new ArgumentNullException(nameof(entity));
 

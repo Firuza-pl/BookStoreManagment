@@ -14,7 +14,7 @@ public class BorrowRecord : Entity, IAggregateRoot
     public Book? Book { get; set; }
     public Member? Member { get; set; }
 
-    public BorrowRecord(Guid bookId, Guid memberId, DateTime borrowDate, RecordStatus isReturned = RecordStatus.Returned) => (BookId, MemberId, BorrowDate, IsReturned) = (bookId, memberId, borrowDate, isReturned);
+    public BorrowRecord(Guid bookId, Guid memberId, DateTime borrowDate, RecordStatus isReturned = RecordStatus.Borrowed) => (BookId, MemberId, BorrowDate, IsReturned) = (bookId, memberId, borrowDate, isReturned);
 
     public void Edit(Guid bookId, Guid memberId, DateTime borrowDate)
     {

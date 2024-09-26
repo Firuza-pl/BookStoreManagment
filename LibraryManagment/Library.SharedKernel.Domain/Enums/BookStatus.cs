@@ -2,5 +2,5 @@
 public enum BookStatus
 {
     Active = 1,
-    Deleted =0
+    DeActive = 0,
 }

@@ -5,8 +5,7 @@
         //repos
         IBookRepository BookRepository { get; }  //  Holds the specific repository for books
         IMemberRepository MemberRepository { get; }
-        IBorrowBookRepository BorrowBookRepository { get; }
-
+        IDomainEventDispatcher DomainEventDispatcher { get; }
 
         //general operations
         Task CreateTransaction(); //start db transaction

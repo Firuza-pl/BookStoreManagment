@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Library.Application.Commands.Books;
-using Library.Application.Commands.BorrowRecords;
 using Library.Application.Commands.Members;
 
 namespace LibraryManagment.Validator;
@@ -15,12 +14,6 @@ public static class ValidatorConfigurations
         services.AddValidatorsFromAssemblyContaining<CreateMemberCommandValidator>();
         services.AddValidatorsFromAssemblyContaining<UpdateMemberCommandValidator>();
         services.AddValidatorsFromAssemblyContaining<DeleteMemberCommandValidator>();
-
-
-        services.AddValidatorsFromAssemblyContaining<CreateRecordCommandValidator>();
-        services.AddValidatorsFromAssemblyContaining<UpdateRecordCommandValidator>();
-        services.AddValidatorsFromAssemblyContaining<DeleteRecordCommandValidator>();
-
 
     }
 }

@@ -5,7 +5,7 @@
 namespace Library.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class addColumnInMember : Migration
+    public partial class newChanges : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

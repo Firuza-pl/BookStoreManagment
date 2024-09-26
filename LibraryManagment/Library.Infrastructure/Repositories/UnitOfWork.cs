@@ -1,5 +1,6 @@
 ﻿using Library.Domain.Interface;
 using Library.Infrastructure.Persistence;
+using Library.Shared.Kernel.Core;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
@@ -7,9 +8,19 @@ namespace Library.Infrastructure.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _context;
+    private readonly IDomainEventDispatcher _domainEventDispatcher;
     private readonly ILogger<BookRepository> _logger;
     private readonly ILogger<MemberRepository> _loggerMember;
-    private readonly ILogger<BorrowBookRepository> _loggerBorrow;
+
+    public UnitOfWork(AppDbContext context, IDomainEventDispatcher domainEventDispatcher,ILogger<BookRepository> logger, ILogger<MemberRepository> loggerMember)
+    {
+        _context = context;
+        _domainEventDispatcher = domainEventDispatcher;
+        _logger = logger;
+        _loggerMember = loggerMember;
+    }
+
+    public IDomainEventDispatcher DomainEventDispatcher => _domainEventDispatcher; // Implement the property
 
     private IDbContextTransaction _dbContextTransaction;
     private bool _disposed = false;
@@ -30,20 +41,7 @@ public class UnitOfWork : IUnitOfWork
     }
 
 
-    private IBorrowBookRepository _borrowBookRepository;
-    public IBorrowBookRepository BorrowBookRepository
-    {
-        get { return _borrowBookRepository ?? new BorrowBookRepository(_context, _loggerBorrow); }
-    }
-
-
-    public UnitOfWork(AppDbContext context, ILogger<BookRepository> logger, ILogger<MemberRepository> loggerMember, ILogger<BorrowBookRepository> loggerRecord)
-    {
-        _context = context;
-        _logger = logger;
-        _loggerMember = loggerMember;
-        _loggerBorrow = loggerRecord;
-    }
+ 
     public async Task CommitAsync()
     {
         try
@@ -126,6 +124,39 @@ public class UnitOfWork : IUnitOfWork
 
     public async Task<int> SaveAsync(CancellationToken cancellationToken)
     {
-      return  await _context.SaveChangesAsync(cancellationToken);
+
+        var entries = _context.ChangeTracker.Entries().ToList();
+        foreach (var entry in entries)
+        {
+            // Log the state of each entry to see what is being tracked
+            Console.WriteLine($"{entry.Entity.GetType().Name}: {entry.State}");
+        }
+
+
+        var entitiesWithEvents = _context.ChangeTracker
+            .Entries<Entity>()
+            .Where(e => e.Entity.DomainEvents.Any())
+            .Select(e => e.Entity)
+            .ToArray();
+
+        // Save the database changes
+        var result = await _context.SaveChangesAsync(cancellationToken);
+
+        // Dispatch the domain events after saving changes
+        foreach (var entity in entitiesWithEvents)
+        {
+            var domainEvents = entity.DomainEvents.ToArray();
+            entity.RemoveDoaminEvent();
+
+            foreach (var domainEvent in domainEvents)
+            {
+                await _domainEventDispatcher.DispatchEventsAsync(new[] { domainEvent });
+            }
+        }
+
+        return result;
     }
+
+
 }
+

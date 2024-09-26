@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Library.Domain.Entites.BookAggregate;
+using Library.Shared.Kernel.Core;
 namespace Library.Domain.Events
 {
-    internal class BorrowRecordStatusChangedEvent
+    public class BorrowRecordStatusChangedEvent : DomainEvent
     {
+        public BorrowRecord BorrowRecord { get; }
+
+        public BorrowRecordStatusChangedEvent(BorrowRecord borrowRecord)
+        {
+            BorrowRecord = borrowRecord ?? throw new ArgumentNullException(nameof(borrowRecord));
+        }
     }
 }
